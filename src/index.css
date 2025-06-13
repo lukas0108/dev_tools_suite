@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@import "tailwindcss/utilities";
+
+@theme {
+    --color-rebecca: oklch(44.03% 0.1603 303.37);
+}
+
+@layer base {
+    body {
+        @apply bg-gray-900 text-gray-100;
+    }
+}
+
+@layer components {
+    .tool-card {
+        @apply bg-gray-800 rounded-xl shadow-lg border border-gray-700;
+    }
+    
+    .btn-primary {
+        @apply bg-rebecca hover:bg-rebecca text-white font-medium px-4 py-2 rounded-lg transition-colors;
+    }
+    
+    .btn-secondary {
+        @apply bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium px-4 py-2 rounded-lg transition-colors;
+    }
+}
