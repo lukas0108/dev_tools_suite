@@ -2,12 +2,12 @@ import { useState } from 'react'
 import Header from './components/layout/Header'
 import Navigation from './components/layout/Navigation'
 import JsonFormatter from './components/tools/JsonFormatter'
-import ColorPalette from './components/tools/ColorPalette'
+import ColorPaletteGenerator from './components/tools/ColorPalette'
 import Footer from './components/layout/Footer'
 
 const tools = [
     { id: 'json', name: 'JSON Formatter', component: JsonFormatter },
-    { id: 'colors', name: 'Color Palette', component: ColorPalette },
+    { id: 'colors', name: 'Color Palette Generator', component: ColorPaletteGenerator },
 ]
 
 export default function App() {
