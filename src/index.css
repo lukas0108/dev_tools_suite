@@ -3,6 +3,9 @@
 
 @theme {
     --color-rebecca: oklch(44.03% 0.1603 303.37);
+    --color-rebecca-hover: oklch(0.2791 0.0932 304);
+    --color-primary-bg: oklch(0.235 0 0);
+    --color-secondary-bg: oklch(0.2736 0 0);
 }
 
 @layer base {
@@ -12,15 +15,39 @@
 }
 
 @layer components {
-    .tool-card {
-        @apply bg-gray-800 rounded-xl shadow-lg border border-gray-700;
+    .btn-regular {
+        @apply flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-rebecca-hover text-gray-100 rounded-lg transition-colors font-medium;
     }
-    
-    .btn-primary {
-        @apply bg-rebecca hover:bg-rebecca text-white font-medium px-4 py-2 rounded-lg transition-colors;
+
+    .btn-rebecca {
+        @apply flex items-center gap-2 px-4 py-2 bg-rebecca hover:bg-rebecca-hover text-gray-100 rounded-lg transition-colors font-medium
     }
-    
-    .btn-secondary {
-        @apply bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium px-4 py-2 rounded-lg transition-colors;
+
+    .content-wrapper {
+        @apply max-w-6xl mx-auto p-6 space-y-6;
+    }
+
+    .content-header {
+        @apply text-center space-y-2;
+    }
+
+    .tool-name { 
+        @apply text-2xl font-bold text-gray-300;
+    }
+
+    .tool-desc {
+        @apply text-gray-400;
+    }
+
+    .input-label {
+        @apply block text-sm font-medium text-gray-300 mb-2;
+    }
+
+    .color-input {
+        @apply w-full px-3 py-2 border border-gray-600 rounded-md focus:ring-2 focus:ring-rebecca focus:border-transparent focus:bg-gray-900
+    }
+
+    .color-card {
+        @apply bg-gray-900 rounded-lg p-4 border border-gray-600;
     }
 }

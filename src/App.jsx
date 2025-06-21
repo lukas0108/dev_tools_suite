@@ -16,7 +16,7 @@ export default function App() {
     const ActiveComponent = tools.find(tool => tool.id === activeTab)?.component
 
     return (
-        <div className="min-h-screen bg-gray-900">
+        <div className="min-h-screen bg-gray-950">
             <Header />
             <main className="container mx-auto px-4 py-8">
                 <Navigation 

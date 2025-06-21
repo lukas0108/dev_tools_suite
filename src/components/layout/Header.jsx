@@ -2,7 +2,7 @@ import { Code, Github } from 'lucide-react'
 
 export default function Header() {
     return (
-        <header className="bg-gray-800 shadow-sm border-b border-gray-700">
+        <header className="bg-gray-900 shadow-sm border-b border-gray-700">
             <div className="container mx-auto px-4 py-4">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -18,9 +18,8 @@ export default function Header() {
                     </div>
                     
                     <div className="flex items-center gap-4">
-                        {/* <ThemeToggle /> */}
                         <a
-                            href="https://github.com/yourusername/devtools-suite"
+                            href="https://github.com/lukas0108/dev_tools_suite"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 text-gray-400 hover:text-rebecca transition-colors"

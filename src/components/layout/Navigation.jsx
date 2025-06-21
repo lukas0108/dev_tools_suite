@@ -5,11 +5,11 @@ export default function Navigation({ tools, activeTab, onTabChange }) {
                 <button
                     key={tool.id}
                     onClick={() => onTabChange(tool.id)}
-                    className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                    activeTab === tool.id
-                        ? 'bg-rebecca text-white shadow-lg'
-                        : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-600'
-                    }`}
+                    className={`border-gray-800 ${
+                        activeTab === tool.id
+                            ? 'btn-rebecca'
+                            : 'btn-regular'
+                        } px-6 py-4`}
                 >
                     {tool.name}
                 </button>

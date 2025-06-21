@@ -71,32 +71,32 @@ export default function JsonFormatter() {
     };
 
     return (
-        <div className="max-w-6xl mx-auto p-6 space-y-6">
+        <div className="content-wrapper">
             {/* Header */}
-            <div className="text-center space-y-2">
+            <div className="content-header">
                 <div className="flex items-center justify-center gap-2">
                     <FileText className="w-6 h-6 text-rebecca" />
-                    <h1 className="text-2xl font-bold text-gray-100">
+                    <h1 className="tool-name">
                         JSON Formatter & Validator
                     </h1>
                 </div>
-                <p className="text-gray-400">
+                <p className="tool-desc">
                     Format, validate, and minify JSON with real-time feedback
                 </p>
             </div>
 
             {/* Controls */}
-            <div className="flex flex-wrap gap-3 justify-center">
+            <div className="flex flex-wrap gap-3 justify-center my-8">
                 <button
                     onClick={handleClear}
-                    className="px-4 py-2 bg-gray-700 hover:bg-rebecca text-gray-300 rounded-lg transition-colors font-medium"
+                    className="btn-regular"
                 >
                     Clear
                 </button>
                 <button
                     onClick={minifyJson}
                     disabled={!input.trim()}
-                    className="px-4 py-2 bg-gray-700 hover:bg-rebecca disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg transition-colors font-medium"
+                    className="btn-regular disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
                     Minify
                 </button>
@@ -127,22 +127,22 @@ export default function JsonFormatter() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Input Section */}
                 <div className="space-y-3">
-                    <label className="block text-sm font-medium text-gray-300">
+                    <label className="input-label">
                         Input JSON
                     </label>
                     <textarea
                         value={input}
                         onChange={handleInputChange}
                         placeholder="Paste your JSON here..."
-                        className="w-full h-80 p-4 border border-gray-600 rounded-lg bg-gray-800 text-gray-100 
-                                focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm resize-none"
+                        className="w-full h-80 p-4 border border-gray-600 rounded-lg bg-gray-900 text-gray-100 
+                                focus:ring-2 focus:ring-rebecca focus:border-transparent font-mono text-sm resize-none"
                     />
                 </div>
 
                 {/* Output Section */}
                 <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                        <label className="block text-sm font-medium text-gray-300">
+                        <label className="input-label mb-0">
                             Formatted Output
                         </label>
                         {output && (
