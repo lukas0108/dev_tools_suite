@@ -3,6 +3,7 @@
 
 @theme {
     --color-rebecca: oklch(44.03% 0.1603 303.37);
+    --color-rebecca-light: oklch(0.6434 0.2548 303.37);
     --color-rebecca-hover: oklch(0.2791 0.0932 304);
     --color-primary-bg: oklch(0.235 0 0);
     --color-secondary-bg: oklch(0.2736 0 0);

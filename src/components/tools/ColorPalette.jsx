@@ -6,12 +6,12 @@ const ColorPaletteGenerator = () => {
     const [harmonyType, setHarmonyType] = useState('complementary');
     const [palette, setPalette] = useState([]);
     const [exportFormat, setExportFormat] = useState('css');
-    const [colorFormat, setColorFormat] = useState('hex');
+    const [colorFormat, setColorFormat] = useState('oklch');
     const [showAccessibility, setShowAccessibility] = useState(true);
     const [copiedColor, setCopiedColor] = useState(null);
     const [copiedPalette, setCopiedPalette] = useState(false);
 
-    // color validation utility
+    // color validation utility (oklch input soonTM)
     const isValidHex = (hex) => {
         return /^#?([a-f\d]{3}|[a-f\d]{6})$/i.test(hex);
     };
@@ -22,18 +22,19 @@ const ColorPaletteGenerator = () => {
         
         // convert 3 digit hex to 6 digit
         if (hex.length === 3) {
-        hex = hex.split('').map(char => char + char).join('');
+            hex = hex.split('').map(char => char + char).join('');
         }
     
-    return '#' + hex;
-};
+        return '#' + hex;
+    };
 
     // color conversion
     const hexToRgb = (hex) => {
         if (!isValidHex(hex)) return null;
-        
+
         const normalizedHex = normalizeHex(hex);
         const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(normalizedHex);
+        
         return result ? {
             r: parseInt(result[1], 16),
             g: parseInt(result[2], 16),
@@ -87,6 +88,7 @@ const ColorPaletteGenerator = () => {
         };
 
         let r, g, b;
+
         if (s === 0) {
             r = g = b = l;
         } else {
@@ -105,15 +107,42 @@ const ColorPaletteGenerator = () => {
     };
 
     const rgbToOklch = (r, g, b) => {
-        // simplified OKLCH conversion (approximation)
-        const { h, s, l } = rgbToHsl(r, g, b);
+        // convert RGB to linear RGB
+        const linearRgb = [r, g, b].map(c => {
+            c = c / 255;
+            return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+        });
+    
+        // to XYZ (i hate this)
+        const [rLin, gLin, bLin] = linearRgb;
+        const x = 0.4124564 * rLin + 0.3575761 * gLin + 0.1804375 * bLin;
+        const y = 0.2126729 * rLin + 0.7151522 * gLin + 0.0721750 * bLin;
+        const z = 0.0193339 * rLin + 0.1191920 * gLin + 0.9503041 * bLin;
+    
+        // to OKLab
+        const l_ = Math.cbrt(0.8189330101 * x + 0.3618667424 * y - 0.1288597137 * z);
+        const m_ = Math.cbrt(0.0329845436 * x + 0.9293118715 * y + 0.0361456387 * z);
+        const s_ = Math.cbrt(0.0482003018 * x + 0.2643662691 * y + 0.6338517070 * z);
+    
+        const l = 0.2104542553 * l_ + 0.7936177850 * m_ - 0.0040720468 * s_;
+        const a = 1.9779984951 * l_ - 2.4285922050 * m_ + 0.4505937099 * s_;
+        const b_lab = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_;
+    
+        // to OKLCH
+        const L = l;
+        const C = Math.sqrt(a * a + b_lab * b_lab);
+        let H = Math.atan2(b_lab, a) * 180 / Math.PI;
+        
+        // hue normalization
+        if (H < 0) H += 360;
+    
         return {
-            l: Math.round(l * 100) / 100,
-            c: Math.round(s * 0.4) / 100,
-            h: h
+            l: Math.round(L * 10000) / 10000,
+            c: Math.round(C * 10000) / 10000,
+            h: Math.round(H * 100) / 100
         };
     };
-
+    
     // color harmony generators
     const generateComplementary = (baseHex) => {
         const rgb = hexToRgb(baseHex);
@@ -203,8 +232,8 @@ const ColorPaletteGenerator = () => {
             ...lightnesses.map((lightness, index) => {
                 const monoRgb = hslToRgb(h, s, lightness);
                 return { 
-                hex: rgbToHex(monoRgb.r, monoRgb.g, monoRgb.b), 
-                name: `Mono ${lightness}%` 
+                    hex: rgbToHex(monoRgb.r, monoRgb.g, monoRgb.b), 
+                    name: `Mono ${lightness}%` 
                 };
             })
         ];
@@ -372,12 +401,12 @@ const ColorPaletteGenerator = () => {
     ];
 
     const colorFormats = [
+        { value: 'oklch', label: 'OKLCH' },
         { value: 'hex', label: 'HEX' },
         { value: 'rgb', label: 'RGB' },
         { value: 'rgba', label: 'RGBA' },
         { value: 'hsl', label: 'HSL' },
-        { value: 'hsla', label: 'HSLA' },
-        { value: 'oklch', label: 'OKLCH' }
+        { value: 'hsla', label: 'HSLA' }
     ];
 
     const exportFormats = [
@@ -397,7 +426,7 @@ const ColorPaletteGenerator = () => {
                     </h1>
                 </div>
                 <p className="tool-desc">
-                    Create and export color palletes based on your primary or brand color
+                    Create and export color palettes based on your primary or brand color
                 </p>
             </div>
 
@@ -410,7 +439,7 @@ const ColorPaletteGenerator = () => {
                             type="color"
                             value={baseColor}
                             onChange={(e) => setBaseColor(e.target.value)}
-                            className="w-12 h-10 rounded border border-gray-600 cursor-pointer"
+                            className="w-12 h-10 px-0.5 rounded border border-gray-600 cursor-pointer"
                         />
                         <input
                             type="text"
@@ -558,8 +587,8 @@ const ColorPaletteGenerator = () => {
                     Useful Links
                 </h3>
                 <ul>
-                    <li><a className='underline text-rebecca' href="https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl">Why OKLCH is better than RGB and HSL</a></li>
-                    <li><a className='underline text-rebecca' href="https://oklch.com">OKLCH color picker and visualizer</a></li>
+                    <li><a className='underline text-rebecca hover:text-rebecca-light' href="https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl">Why OKLCH is better than RGB and HSL</a></li>
+                    <li><a className='underline text-rebecca hover:text-rebecca-light' href="https://oklch.com">OKLCH color picker and visualizer</a></li>
                 </ul>
             </div>
 
