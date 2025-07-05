@@ -45,10 +45,10 @@
     }
 
     .color-input {
-        @apply w-full px-3 py-2 border border-gray-600 rounded-md focus:ring-2 focus:ring-rebecca focus:border-transparent focus:bg-gray-900
+        @apply w-full px-3 py-2 border border-rebecca/66 bg-rebecca/6 rounded-md focus:ring-2 focus:ring-rebecca focus:border-transparent focus:bg-gray-950 focus:outline-0
     }
 
     .color-card {
-        @apply bg-gray-900 rounded-lg p-4 border border-gray-600;
+        @apply border border-rebecca/66 bg-rebecca/6 rounded-lg p-4;
     }
 }

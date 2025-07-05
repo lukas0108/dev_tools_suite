@@ -530,11 +530,11 @@ const ColorPaletteGenerator = () => {
                     return (
                         <div key={index} className="color-card">
                             <div 
-                                className="w-full h-32 rounded-lg mb-4 border border-gray-600 relative overflow-hidden"
+                                className="w-full h-32 rounded-lg mb-4 border border-black shadow-lg relative overflow-hidden"
                                 style={{ backgroundColor: color.hex }}
                             >
                                 <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="bg-black bg-opacity-50 text-white px-2 py-1 rounded text-sm font-medium">
+                                    <div className="bg-black/70 text-white px-2 py-1 rounded text-sm font-medium">
                                         {color.name}
                                     </div>
                                 </div>

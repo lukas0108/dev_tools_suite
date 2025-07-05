@@ -1,6 +1,6 @@
 export default function Navigation({ tools, activeTab, onTabChange }) {
     return (
-        <nav className="flex flex-wrap gap-2 justify-center">
+        <nav className="flex flex-wrap gap-2 justify-center mt-[81px]">
             {tools.map((tool) => (
                 <button
                     key={tool.id}

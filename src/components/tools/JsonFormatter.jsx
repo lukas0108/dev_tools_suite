@@ -134,8 +134,8 @@ export default function JsonFormatter() {
                         value={input}
                         onChange={handleInputChange}
                         placeholder="Paste your JSON here..."
-                        className="w-full h-80 p-4 border border-gray-600 rounded-lg bg-gray-900 text-gray-100 
-                                focus:ring-2 focus:ring-rebecca focus:border-transparent font-mono text-sm resize-none"
+                        className="w-full h-80 p-4 border border-rebecca/66 bg-rebecca/6 rounded-lg text-gray-100 
+                                focus:ring-0 focus:border-transparent font-mono text-sm resize-none"
                     />
                 </div>
 
@@ -169,7 +169,7 @@ export default function JsonFormatter() {
                             value={output}
                             readOnly
                             placeholder="Formatted JSON will appear here..."
-                            className="w-full h-80 p-4 border border-gray-600 rounded-lg bg-gray-900 text-gray-100 font-mono text-sm resize-none"
+                            className="w-full h-80 p-4 border border-rebecca/66 bg-rebecca/6 shadow-sm rounded-lg text-gray-100 font-mono text-sm resize-none"
                         />
                     </div>
                 </div>
