@@ -11,7 +11,7 @@
 
 @layer base {
     body {
-        @apply bg-gray-900 text-gray-100;
+        @apply text-gray-100 h-screen;
     }
 }
 
@@ -29,7 +29,7 @@
     }
 
     .content-header {
-        @apply text-center space-y-2;
+        @apply h-fit text-center space-y-2;
     }
 
     .tool-name { 
